@@ -8,4 +8,4 @@ command:
   - main.py
 
 env:
-  # Add any env vars your MCP server needs
+  # Add any env vars your MCP server needs to
