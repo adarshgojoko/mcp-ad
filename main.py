@@ -92,8 +92,14 @@ def format_sql_hint(sql: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run(
-        transport="streamable-http",
-        host="0.0.0.0",
-        port=8000,
-    )
+    # Older mcp versions don't accept host/port here; let runtime defaults apply.
+    # Try modern HTTP transport first; Databricks Apps route HTTP to the app.
+    try:
+        mcp.run(transport="streamable-http")
+    except TypeError:
+        # Fallback if streamable-http isn't supported by this mcp version
+        try:
+            mcp.run(transport="http")
+        except TypeError:
+            # Final fallback to SSE transport
+            mcp.run(transport="sse")
