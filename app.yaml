@@ -1,0 +1,11 @@
+# app.yaml
+build:
+  commands:
+    - pip install -r requirements.txt
+
+command:
+  - python
+  - main.py
+
+env:
+  # Add any env vars your MCP server needs
